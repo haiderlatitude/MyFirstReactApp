@@ -1,16 +1,25 @@
-function ListGroup() {
-  let items = ["Lahore", "Karachi", "Islamabad", "Gujranwala", "Faisalabad"];
-  //   items = [];
+import { useState } from "react";
 
-  const handleClick = (event) => console.log(event);
-
+function ListGroup({ items, heading, onSelectItem }) {
+  const [selectedIndex, setSelectedIndex] = useState(-1);
   return (
     <>
-      <h1>List Group</h1>
+      <h1>{heading}</h1>
       {items.length > 0 ? (
         <ul className="list-group">
-          {items.map((item) => (
-            <li key={item} className="list-group-item" onClick={handleClick}>
+          {items.map((item, index) => (
+            <li
+              key={item}
+              className={
+                selectedIndex === index
+                  ? "list-group-item active"
+                  : "list-group-item"
+              }
+              onClick={() => {
+                setSelectedIndex(index);
+                onSelectItem(item);
+              }}
+            >
               {item}
             </li>
           ))}
